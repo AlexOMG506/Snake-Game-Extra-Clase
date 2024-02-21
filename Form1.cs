@@ -29,9 +29,11 @@ namespace Snake_Game_Extra_Clase
 
         Food comida = new Food();
         Snake snake = new Snake();
+        public List<Point> serpiente;
         public Form1()
         {
             InitializeComponent();
+            snake.Inicializar(); // Asegúrate de que la serpiente esté inicializada
             Jugar();
         }
         private void PintarJuego(object sender, PaintEventArgs e)

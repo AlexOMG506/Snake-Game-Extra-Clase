@@ -17,14 +17,23 @@ namespace Snake_Game_Extra_Clase
         private const int tamInicialSerpiente = 3;
 
         
-        private List<Point> serpiente;
+        public List<Point> serpiente;
         private Point comidita;
-        
-       
 
-        
 
-        
+
+
+        public void Inicializar()
+        {
+            serpiente = new List<Point>();
+
+            // Agregar segmentos iniciales a la serpiente
+            for (int i = 0; i < tamInicialSerpiente; i++)
+            {
+                serpiente.Add(new Point(anchoTablero / 2 - i, alturaTablero / 2));
+            }
+        }
+
 
         public void DibujarSerpiente(Graphics g)
         {
