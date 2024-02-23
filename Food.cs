@@ -10,21 +10,34 @@ namespace Snake_Game_Extra_Clase
     public class Food
     {
 
-        private Point comidita;
-        private const int tamInicialSerpiente = 3;
-        private const int tamCelda = 20;
+        private static Food instance;
         private const int anchoTablero = 20;
         private const int alturaTablero = 20;
+        private Point position;
 
-        public void DibujarComidita(Graphics g) 
+        public Food()
         {
-            g.FillRectangle(Brushes.Red, comidita.X * tamCelda, comidita.Y * tamCelda, tamCelda, tamCelda);
+            // Puedes inicializar la posición inicial de la comida aquí o en otro método según tus necesidades.
+            GenerateRandomPosition();
+        }
+        public static Food Instance
+        {
+            get
+            {
+                if (instance == null)
+                {
+                    instance = new Food();
+                }
+                return instance;
+            }
         }
 
-        public void GenerarComidita() 
-        { 
+        public Point Position => position;
+
+        public void GenerateRandomPosition()
+        {
             Random random = new Random();
-            comidita = new Point(random.Next(anchoTablero), random.Next(alturaTablero));
+            position = new Point(random.Next(anchoTablero), random.Next(alturaTablero));
         }
 
     }

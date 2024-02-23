@@ -8,3 +8,13 @@ C:\Users\josue\OneDrive - Universidad Latina\Documents\Cursos Universidad Enero 
 C:\Users\josue\OneDrive - Universidad Latina\Documents\Cursos Universidad Enero 2024\Sistemas Operativos\Trabajos\Snake-Game-Extra-Clase\obj\Debug\Snake-Game-Extra-Clase.csproj.CoreCompileInputs.cache
 C:\Users\josue\OneDrive - Universidad Latina\Documents\Cursos Universidad Enero 2024\Sistemas Operativos\Trabajos\Snake-Game-Extra-Clase\obj\Debug\Snake-Game-Extra-Clase.exe
 C:\Users\josue\OneDrive - Universidad Latina\Documents\Cursos Universidad Enero 2024\Sistemas Operativos\Trabajos\Snake-Game-Extra-Clase\obj\Debug\Snake-Game-Extra-Clase.pdb
+C:\Users\josue\Source\Repos\Snake-Game-Extra-Clase\bin\Debug\Snake-Game-Extra-Clase.exe.config
+C:\Users\josue\Source\Repos\Snake-Game-Extra-Clase\bin\Debug\Snake-Game-Extra-Clase.exe
+C:\Users\josue\Source\Repos\Snake-Game-Extra-Clase\bin\Debug\Snake-Game-Extra-Clase.pdb
+C:\Users\josue\Source\Repos\Snake-Game-Extra-Clase\obj\Debug\Snake-Game-Extra-Clase.csproj.AssemblyReference.cache
+C:\Users\josue\Source\Repos\Snake-Game-Extra-Clase\obj\Debug\Snake_Game_Extra_Clase.Form1.resources
+C:\Users\josue\Source\Repos\Snake-Game-Extra-Clase\obj\Debug\Snake_Game_Extra_Clase.Properties.Resources.resources
+C:\Users\josue\Source\Repos\Snake-Game-Extra-Clase\obj\Debug\Snake-Game-Extra-Clase.csproj.GenerateResource.cache
+C:\Users\josue\Source\Repos\Snake-Game-Extra-Clase\obj\Debug\Snake-Game-Extra-Clase.csproj.CoreCompileInputs.cache
+C:\Users\josue\Source\Repos\Snake-Game-Extra-Clase\obj\Debug\Snake-Game-Extra-Clase.exe
+C:\Users\josue\Source\Repos\Snake-Game-Extra-Clase\obj\Debug\Snake-Game-Extra-Clase.pdb

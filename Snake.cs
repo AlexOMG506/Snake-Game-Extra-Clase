@@ -15,7 +15,7 @@ namespace Snake_Game_Extra_Clase
         private Direction direction;
 
         Food comida = new Food();
-
+        private readonly object lockObject = new object();
         public Snake(int initialSize, Point initialPosition)
         {
             segments = new List<Point>();
@@ -32,37 +32,46 @@ namespace Snake_Game_Extra_Clase
 
         public void Move()
         {
-            Point head = segments[0];
-            Point newHead = new Point(head.X, head.Y);
-
-            switch (direction)
+            Point head, newHead;
+            lock (lockObject)
             {
-                case Direction.Up:
-                    newHead.Y--;
-                    break;
-                case Direction.Down:
-                    newHead.Y++;
-                    break;
-                case Direction.Left:
-                    newHead.X--;
-                    break;
-                case Direction.Right:
-                    newHead.X++;
-                    break;
+                head = segments[0];
+                newHead = new Point(head.X, head.Y);
+                switch (direction)
+                {
+                    case Direction.Up:
+                        newHead.Y--;
+                        break;
+                    case Direction.Down:
+                        newHead.Y++;
+                        break;
+                    case Direction.Left:
+                        newHead.X--;
+                        break;
+                    case Direction.Right:
+                        newHead.X++;
+                        break;
+                }
+
+                segments.Insert(0, newHead);
+                if (newHead != Food.Instance.Position)
+                {
+                    lock (lockObject)
+                    {
+                        if (segments.Count > 1) // Verificar que haya al menos dos segmentos antes de intentar quitar el último
+                        {
+                            segments.RemoveAt(segments.Count - 1);
+                        }
+                    }
+                }
+                //else
+                //{
+
+                //    Grow();  // Hacer crecer la serpiente
+                //    Food.Instance.GenerateRandomPosition();
+                //}
+
             }
-
-            segments.Insert(0, newHead);
-            if (newHead != Food.Instance.Position)
-            {
-
-                segments.RemoveAt(segments.Count - 1);
-            }
-            //else
-            //{
-
-            //    Grow();  // Hacer crecer la serpiente
-            //    Food.Instance.GenerateRandomPosition();
-            //}
 
         }
 
