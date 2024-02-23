@@ -11,39 +11,108 @@ namespace Snake_Game_Extra_Clase
 {
     public class Snake
     {
-        private const int tamCelda = 20;
-        private const int anchoTablero = 20;
-        private const int alturaTablero = 20;
-        private const int tamInicialSerpiente = 3;
+        private List<Point> segments;
+        private Direction direction;
 
-        
-        public List<Point> serpiente;
-        private Point comidita;
+        Food comida = new Food();
 
-
-
-
-        public void Inicializar()
+        public Snake(int initialSize, Point initialPosition)
         {
-            serpiente = new List<Point>();
+            segments = new List<Point>();
 
-            // Agregar segmentos iniciales a la serpiente
-            for (int i = 0; i < tamInicialSerpiente; i++)
+            direction = Direction.Right;
+
+            for (int i = 0; i < initialSize; i++)
             {
-                serpiente.Add(new Point(anchoTablero / 2 - i, alturaTablero / 2));
+                segments.Add(new Point(initialPosition.X - i, initialPosition.Y));
+            }
+        }
+
+        public List<Point> Segments => segments;
+
+        public void Move()
+        {
+            Point head = segments[0];
+            Point newHead = new Point(head.X, head.Y);
+
+            switch (direction)
+            {
+                case Direction.Up:
+                    newHead.Y--;
+                    break;
+                case Direction.Down:
+                    newHead.Y++;
+                    break;
+                case Direction.Left:
+                    newHead.X--;
+                    break;
+                case Direction.Right:
+                    newHead.X++;
+                    break;
+            }
+
+            segments.Insert(0, newHead);
+            if (newHead != Food.Instance.Position)
+            {
+
+                segments.RemoveAt(segments.Count - 1);
+            }
+            //else
+            //{
+
+            //    Grow();  // Hacer crecer la serpiente
+            //    Food.Instance.GenerateRandomPosition();
+            //}
+
+        }
+
+        public void SetDirection(Direction newDirection)
+        {
+            // Evitar que la serpiente se mueva en la dirección opuesta.
+            if ((direction == Direction.Up && newDirection != Direction.Down) ||
+                (direction == Direction.Down && newDirection != Direction.Up) ||
+                (direction == Direction.Left && newDirection != Direction.Right) ||
+                (direction == Direction.Right && newDirection != Direction.Left))
+            {
+                direction = newDirection;
+
             }
         }
 
 
-        public void DibujarSerpiente(Graphics g)
+        public enum Direction { Up, Down, Left, Right }
+        public void Grow()
         {
-            foreach (Point segment in serpiente)
+            // Obtén la posición actual de la cabeza de la serpiente
+            Point head = segments[0];
+
+            // Calcula la nueva posición del segmento basado en la dirección actual
+            Point newSegment;
+
+            switch (direction)
             {
-                g.FillRectangle(Brushes.Green, segment.X * tamCelda, segment.Y * tamCelda, tamCelda, tamCelda);
+                case Direction.Up:
+                    newSegment = new Point(head.X, head.Y - 1);
+                    break;
+                case Direction.Down:
+                    newSegment = new Point(head.X, head.Y + 1);
+                    break;
+                case Direction.Left:
+                    newSegment = new Point(head.X - 1, head.Y);
+                    break;
+                case Direction.Right:
+                    newSegment = new Point(head.X + 1, head.Y);
+                    break;
+                default:
+                    // La dirección debería ser siempre una de las cuatro posibles.
+                    throw new InvalidOperationException("Dirección de serpiente no válida.");
             }
+
+            // Agrega el nuevo segmento a la lista de segmentos de la serpiente
+            segments.Insert(0, newSegment);
         }
 
-        
+
 
     }
 }
