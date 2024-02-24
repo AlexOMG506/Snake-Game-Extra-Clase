@@ -12,8 +12,8 @@ using System.Windows.Forms;
 namespace Snake_Game_Extra_Clase
 {
     public partial class Form1 : Form
-    { 
-        
+    {
+
         private const int tamCelda = 20;
         private const int anchoTablero = 20;
         private const int alturaTablero = 20;
@@ -24,16 +24,17 @@ namespace Snake_Game_Extra_Clase
         private Food food;
         private Thread hiloJuego;
         private bool jugando;
-        
+
         private int score = 0; // contador de puntos
-        public List<Point> serpiente;
+        private int velocidad = 800; // velocidad de la serpiente
+        private int tiempoSinComer = 0; // temporizador de penalizacion
         public Form1()
         {
             InitializeComponent();
+            this.StartPosition = FormStartPosition.CenterScreen; // centramos el formulario
             Jugar();
-
-
         }
+
         private void PintarJuego(object sender, PaintEventArgs e)
         {
             Graphics g = e.Graphics;
@@ -41,7 +42,13 @@ namespace Snake_Game_Extra_Clase
             DibujarComidita(g);
 
             lblScore.Text = $"Score Player: {score}";
-
+            lblSpeed.Text = $"Speed Snake: {GetSpeedText()}";
+        }
+        private string GetSpeedText()
+        {
+            // Convierte la velocidad a una representación más legible
+            double velocidadSegundos = velocidad / 1000.0;
+            return $"{velocidadSegundos} s";
         }
 
         private void BucleJuego()
@@ -49,10 +56,18 @@ namespace Snake_Game_Extra_Clase
             while (jugando)
             {
                 snake.Move();
-
                 RevisarChoque();
                 pictureBox.Invalidate();
-                Thread.Sleep(200); // Velocidad del juego
+                Thread.Sleep(velocidad); // Velocidad del juego
+
+                tiempoSinComer++; // Incrementar el tiempo sin comer
+
+                if (tiempoSinComer > 50 && score > 50)
+                {
+                    // Penalizar el puntaje y reiniciar el tiempo sin comer
+                    score = Math.Max(score - 5, 0);
+                    tiempoSinComer = 0;
+                }
             }
         }
 
@@ -61,7 +76,7 @@ namespace Snake_Game_Extra_Clase
             // Dibujar la serpiente del Jugador 
             foreach (Point segment in snake.Segments)
             {
-                g.FillRectangle(Brushes.Green, segment.X * tamCelda, segment.Y * tamCelda, tamCelda, tamCelda);
+                g.FillRectangle(Brushes.Coral, segment.X * tamCelda, segment.Y * tamCelda, tamCelda, tamCelda);
             }
 
 
@@ -72,6 +87,7 @@ namespace Snake_Game_Extra_Clase
         }
         private void Jugar()
         {
+
 
             jugando = true;
             snake = new Snake(tamInicialSerpiente, new Point(anchoTablero / 2, alturaTablero / 2)); ;
@@ -95,7 +111,7 @@ namespace Snake_Game_Extra_Clase
             if (head.X < 0 || head.X >= anchoTablero || head.Y < 0 || head.Y >= alturaTablero)
             {
                 jugando = false;
-                MessageBox.Show("Perdiste!!!!");
+                MostrarMensajePerdiste();
                 return;
             }
 
@@ -104,7 +120,7 @@ namespace Snake_Game_Extra_Clase
                 if (head == snake.Segments[i])
                 {
                     jugando = false;
-                    MessageBox.Show("Perdiste!!!!");
+                    MostrarMensajePerdiste();
                     return;
                 }
             }
@@ -117,11 +133,25 @@ namespace Snake_Game_Extra_Clase
 
                 score += 5;
 
+                if (score >= 10)
+                {
+                    // Reducir la velocidad hasta un límite mínimo
+                    velocidad = Math.Max(velocidad - 25, 100);
+                }
                 // Verificar si el puntaje alcanza 100 y mostrar mensaje de ganaste
-                if (score >= 100)
+                if (score >= 150)
                 {
                     jugando = false;
-                    MessageBox.Show("¡Ganaste! Puntaje: 100", "¡Felicidades!");
+                    MessageBox.Show("¡Ganaste! Puntaje: 150", "¡Felicidades!");
+                    DialogResult reiniciar = MessageBox.Show("¿Quieres reiniciar el juego?", "Reiniciar", MessageBoxButtons.YesNo);
+                    if (reiniciar == DialogResult.Yes)
+                    {
+                        ReiniciarJuego();
+                    }
+                    else
+                    {
+                        Application.Exit();
+                    }
                     return;
                 }
                 pictureBox.Invalidate();
@@ -147,9 +177,36 @@ namespace Snake_Game_Extra_Clase
             }
             return base.ProcessCmdKey(ref msg, keyData);
         }
-
-        private void btnJugar_Click(object sender, EventArgs e)
+        private void MostrarMensajePerdiste()
         {
+            MessageBox.Show("Perdiste!!!!", "¡Game Over!", MessageBoxButtons.OK);
+
+            // Ofrecer la opción de reiniciar el juego
+            DialogResult reiniciar = MessageBox.Show("¿Quieres reiniciar el juego?", "Reiniciar", MessageBoxButtons.YesNo);
+            if (reiniciar == DialogResult.Yes)
+            {
+                ReiniciarJuego();
+            }
+            else
+            {
+                Application.Exit();
+            }
+        }
+        private void ReiniciarJuego()
+        {
+            jugando = false;
+
+            score = 0;
+            velocidad = 800;
+            tiempoSinComer = 0;
+            jugando = true;
+
+            // Reiniciar las instancias de la serpiente y la comida
+            snake = new Snake(tamInicialSerpiente, new Point(anchoTablero / 2, alturaTablero / 2));
+            food = new Food();
+
+
+
         }
     }
 }

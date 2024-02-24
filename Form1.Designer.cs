@@ -29,7 +29,9 @@
         private void InitializeComponent()
         {
             this.lblScore = new System.Windows.Forms.Label();
-            this.btnJugar = new System.Windows.Forms.Button();
+            this.lblSpeed = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // lblScore
@@ -42,23 +44,44 @@
             this.lblScore.TabIndex = 0;
             this.lblScore.Text = "Score: 0";
             // 
-            // btnJugar
+            // lblSpeed
             // 
-            this.btnJugar.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnJugar.Location = new System.Drawing.Point(604, 205);
-            this.btnJugar.Name = "btnJugar";
-            this.btnJugar.Size = new System.Drawing.Size(103, 39);
-            this.btnJugar.TabIndex = 1;
-            this.btnJugar.Text = "Jugar";
-            this.btnJugar.UseVisualStyleBackColor = true;
-            this.btnJugar.Click += new System.EventHandler(this.btnJugar_Click);
+            this.lblSpeed.AutoSize = true;
+            this.lblSpeed.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSpeed.Location = new System.Drawing.Point(617, 71);
+            this.lblSpeed.Name = "lblSpeed";
+            this.lblSpeed.Size = new System.Drawing.Size(132, 22);
+            this.lblSpeed.TabIndex = 1;
+            this.lblSpeed.Text = "Speed Snake: 0";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(609, 147);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(179, 44);
+            this.label1.TabIndex = 2;
+            this.label1.Text = "Consigue 150 puntos \r\npara ganar";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(595, 275);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(193, 88);
+            this.label2.TabIndex = 3;
+            this.label2.Text = "Al pasar los 50 puntos,\r\nse restaran \r\n5 puntos del Score \r\ncada 50 segundos";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.btnJugar);
+            this.ClientSize = new System.Drawing.Size(800, 551);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.lblSpeed);
             this.Controls.Add(this.lblScore);
             this.Name = "Form1";
             this.Text = "Form1";
@@ -70,7 +93,9 @@
         #endregion
 
         private System.Windows.Forms.Label lblScore;
-        private System.Windows.Forms.Button btnJugar;
+        private System.Windows.Forms.Label lblSpeed;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
     }
 }
 
